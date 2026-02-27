@@ -47,8 +47,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Загружаем ВСЁ из текущей папки (.)
           path: '.'
+
+      - name: DEBUG - List uploaded artifact files
+        run: |
+          echo "📦 Содержимое артефакта после загрузки:"
+          ls -la
+          echo "📄 Проверка config.js в артефакте:"
+          cat config.js || echo "❌ config.js не найден!"
 
       - name: Deploy to GitHub Pages
         id: deployment
