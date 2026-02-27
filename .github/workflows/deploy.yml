@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create config.js with API key
+        env:
+          MY_API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "🔑 Создаём config.js..."
+          echo "// Автоматически сгенерировано GitHub Actions" > config.js
+          echo "window.APP_CONFIG = {" >> config.js
+          echo "  OPENROUTER_API_KEY: '$MY_API_KEY'" >> config.js
+          echo "};" >> config.js
+          echo "✅ config.js создан"
+          
+          # Проверяем содержимое
+          echo "Содержимое config.js:"
+          cat config.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
