@@ -9,7 +9,7 @@ console.log('window.APP_CONFIG:', window.APP_CONFIG);
 console.log('window.CONFIG:', window.CONFIG); // для проверки обоих вариантов
 
 // БЕРЁМ КЛЮЧ ИЗ ГЛОБАЛЬНОГО КОНФИГА
-const API_KEY = window.CONFIG?.API_KEY || '';
+const API_KEY = window.APP_CONFIG?.OPENROUTER_API_KEY || '';
 
 console.log('API_KEY длина:', API_KEY.length);
 console.log('API_KEY первые символы:', API_KEY.substring(0, 10));
